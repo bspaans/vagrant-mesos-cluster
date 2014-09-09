@@ -34,6 +34,11 @@
       "Type": "String"
     },
 
+    "SubnetIdPriv0": {
+      "Description": "Subnet private 0 (10.0.0.0/16) id",
+      "Type": "String"
+    },
+
     "MesosStackInstanceType": {
       "Description": "Mesos Stack instance type",
       "Type": "String",
@@ -335,8 +340,8 @@
         "KeyName" : { "Ref" : "KeyName" },
         "ImageId" : { "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "AMI" ]},
         "Monitoring" : true,
-        "PrivateIpAddress" : "10.0.1.31",
-        "SubnetId": { "Ref": "SubnetIdPub1" },
+        "PrivateIpAddress" : "10.0.0.11",
+        "SubnetId": { "Ref": "SubnetIdPriv0" },
         "Tags": [
           { "Key" : "Name", "Value": "Jenkins" },
           { "Key" : "Role", "Value" : "jenkins" },
