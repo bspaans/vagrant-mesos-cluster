@@ -1,12 +1,9 @@
-system_packages:
+apt_system_packages:
   - build-essential
   - python-setuptools
   - python-pip
-  - python-dev
-  - python-protobuf
   - git
   - curl
   - wget
-  - monit
   - logrotate
   - ntp

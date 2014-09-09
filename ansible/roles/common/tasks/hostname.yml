@@ -1,0 +1,6 @@
+---
+# https://www.debian.org/doc/manuals/debian-reference/ch05.en.html#_the_hostname_resolution
+
+- name: Add hostname-fix script on network up
+  template: src=hostname-fix.j2 dest=/etc/network/if-up.d/fix-hostname mode=0755
+  notify: Execute hostname fix

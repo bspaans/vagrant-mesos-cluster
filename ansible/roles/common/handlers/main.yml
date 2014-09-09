@@ -1,2 +1,5 @@
-- name: restart ntp
+- name: Restart ntp
   service: name=ntp state=restarted
+
+- name: Execute hostname fix
+  shell: /etc/network/if-up.d/fix-hostname

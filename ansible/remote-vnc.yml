@@ -9,4 +9,5 @@
     private: yes
 
   roles:
+    - common
     - vnc

@@ -4,6 +4,7 @@
   sudo: yes
 
   roles:
+    - common
     - zookeeper
     - mesosphere
     - marathon

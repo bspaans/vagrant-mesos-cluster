@@ -1,9 +1,11 @@
 ---
 - name: Install deimos
   pip: name=deimos
+  when: mesos_version | version_compare('0.20.0', '<')
 
-- name: Mesos default config file
+- name: Deimos default config file
   template: src=deimos.conf.j2 dest=/etc/deimos.cfg
+  when: mesos_version | version_compare('0.20.0', '<')
 
 - name: Set mesos slave options
   shell: echo {{item.value}} | dd of=/etc/mesos-slave/{{item.key}}
