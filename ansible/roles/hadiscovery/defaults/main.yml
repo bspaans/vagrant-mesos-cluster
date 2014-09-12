@@ -1,5 +1,5 @@
 ---
-hadiscovery_version: "a014e78fe28af11c96ad31dd38905f4584db62f6"
+hadiscovery_version: "09280924574e34a7b096e5795318739ebca0f34e"
 hadiscovery_log_file: "/var/log/hadiscovery.log"
 hadiscovery_bin_folder: "/opt/src/hadiscovery/{{hadiscovery_version}}"
 hadiscovery_marathon_port: "8080"

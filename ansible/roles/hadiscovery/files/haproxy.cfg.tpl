@@ -19,6 +19,25 @@ listen stats
   stats enable
   stats auth admin:admin
 
+frontend http-in
+  bind *:80
+
+  # Define hosts
+  acl host_shotgun hdr(host) -i shotgun.woorank.com
+  use_backend _shotgun if host_shotgun
+
+{{ range $appId, $app := . }}
+{{ if appExposesPorts $app }}
+backend {{ stripVersion ( sanitizeApplicationId $appId ) }}
+  balance leastconn
+  mode tcp
+  option tcplog
+  {{ range $taskId, $task := $app.ApplicationInstances }}
+  server {{$taskId}} {{$task.Host}}:{{taskPort $task}} check
+  {{ end }}
+{{ end }}
+{{ end }}
+
 {{ range $appId, $app := . }}
 {{ if appExposesPorts $app }}
 listen {{ sanitizeApplicationId $appId }}
