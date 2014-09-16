@@ -24,8 +24,8 @@
     "ip": "10.0.10.101",
     "config": {
       "type": "virtualbox",
-      "cpus": 1,
-      "mem": 1024
+      "cpus": 2,
+      "mem": 2048
     }
   },
 
