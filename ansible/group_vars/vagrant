@@ -1,6 +1,4 @@
 ---
-hadiscovery_marathon_ip: 10.0.10.11
-
 # mesos-master
 mesos_zk: "zk://10.0.10.11:2181/mesos"
 mesos_options_master:
@@ -12,4 +10,5 @@ zookeeper_servers:
   - { id: 1, host: 10.0.10.11 }
 
 # mesos-slave
-mesos_zk: "zk://10.0.10.11:2181/mesos"
+marathon_host_servers:
+  - 10.0.10.11:8080

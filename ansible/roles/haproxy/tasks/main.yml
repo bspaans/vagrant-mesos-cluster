@@ -4,4 +4,11 @@
 
 - name: Enable HAProxy
   template: src=haproxy_enable.j2 dest=/etc/default/haproxy
-  notify: Restart HAProxy
+  notify: Restart haproxy
+
+- name: Write config file
+  template: src=haproxy.cfg.j2 dest=/etc/haproxy/haproxy.cfg
+  notify: Reload haproxy
+
+- name: Make sure haproxy is started and enabled
+  service: name=haproxy state=started enabled=yes

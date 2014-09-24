@@ -6,3 +6,4 @@
   roles:
     - common
     - { role: mesosphere, tags: [ 'mesos' ] }
+    - { role: marathon, tags: [ 'marathon'], marathon_run_mode: bridge }

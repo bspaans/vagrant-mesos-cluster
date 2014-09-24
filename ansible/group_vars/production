@@ -1,8 +1,5 @@
 ---
-# HAproxy
-hadiscovery_marathon_ip: 10.0.10.11
-
-# mesos-masters
+# mesos-master
 mesos_zk: "zk://10.0.10.11:2181,10.0.20.11:2181,10.0.30.11:2181/mesos"
 mesos_options_master:
   cluster: mesos_aws_cluster
@@ -14,6 +11,12 @@ zookeeper_servers:
   - { id: 2, host: 10.0.20.11 }
   - { id: 3, host: 10.0.30.11 }
 marathon_runtime_params: --ha
+
+# mesos-slave
+marathon_host_servers:
+  - 10.0.10.11:8080
+  - 10.0.20.11:8080
+  - 10.0.30.11:8080
 
 # datadog
 datadog_enable_ec2tags: yes

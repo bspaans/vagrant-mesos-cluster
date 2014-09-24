@@ -3,15 +3,14 @@
 10.0.20.11 mesos_ip=10.0.20.11 zookeeper_myid=2
 10.0.30.11 mesos_ip=10.0.30.11 zookeeper_myid=3
 
-[haproxy]
-10.0.1.21 hadiscovery_local_host=10.0.1.21
-10.0.2.21 hadiscovery_local_host=10.0.2.21
-10.0.3.21 hadiscovery_local_host=10.0.3.21
-
 [mesos-slaves]
 10.0.1.101 mesos_ip=10.0.1.101
 10.0.2.101 mesos_ip=10.0.2.101
 10.0.3.101 mesos_ip=10.0.3.101
+
+[haproxy]
+10.0.1.21
+10.0.2.21
 
 [remote-vnc]
 10.0.1.5
@@ -21,6 +20,6 @@
 
 [production:children]
 mesos-masters
-haproxy
 mesos-slaves
+haproxy
 remote-vnc

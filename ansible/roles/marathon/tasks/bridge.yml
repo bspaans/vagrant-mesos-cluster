@@ -1,0 +1,8 @@
+---
+- name: Run haproxy bridge install script
+  command: "{{marathon_bin_folder}}/bin/haproxy-marathon-bridge install_haproxy_system"
+  args:
+    creates: /usr/local/bin/haproxy-marathon-bridge
+
+- name: Re-Configure marathon hosts
+  template: src=marathons.j2 dest=/etc/haproxy-marathon-bridge/marathons

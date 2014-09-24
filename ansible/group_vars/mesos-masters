@@ -1,5 +1,2 @@
 ---
 mesos_mode: master
-marathon_install_mode: bin
-marathon_version: v0.7.0-RC2
-marathon_file_name: marathon-0.7.0-RC2.tgz

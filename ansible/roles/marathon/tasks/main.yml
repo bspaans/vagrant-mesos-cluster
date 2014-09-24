@@ -6,3 +6,7 @@
   when: marathon_install_mode == "source"
 
 - include: deploy.yml
+  when: marathon_run_mode == "server"
+
+- include: bridge.yml
+  when: marathon_run_mode == "bridge"

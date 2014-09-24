@@ -1,9 +1,10 @@
 ---
 marathon_install_mode: "bin" # 'bin' or 'source'
+marathon_run_mode: "server" # 'server' or 'bridge'
 
-marathon_version: "marathon-0.6.0"
-marathon_file_name: "{{marathon_version}}.tgz"
-marathon_download_url: "http://downloads.mesosphere.io/marathon/{{marathon_version}}/{{marathon_file_name}}"
+marathon_version: "0.7.0-RC4"
+marathon_file_name:  "marathon-{{marathon_version}}.tgz"
+marathon_download_url: "http://downloads.mesosphere.io/marathon/v{{marathon_version}}/{{marathon_file_name}}"
 
 marathon_bin_folder: "/opt/marathon/{{marathon_version}}"
 

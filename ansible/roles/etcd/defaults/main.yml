@@ -1,0 +1,9 @@
+---
+etcd_version: v0.4.6
+etcd_download_url: https://github.com/coreos/etcd/releases/download/{{ etcd_version }}/etcd-{{ etcd_version }}-linux-amd64.tar.gz
+etcd_bin_folder: /opt/etcd/{{ etcd_version }}
+etcd_data_dir: /var/log/etcd
+
+etcd_ip: 127.0.0.1
+etcd_addr: "{{ etcd_ip }}:4001"
+etcd_peer_addr: "{{ etcd_ip }}:7001"

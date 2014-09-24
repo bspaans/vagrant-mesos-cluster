@@ -1,0 +1,2 @@
+---
+haproxy_service_backends: "{{ groups['mesos-slaves'] }}"

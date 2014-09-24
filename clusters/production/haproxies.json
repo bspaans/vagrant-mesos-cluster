@@ -1,7 +1,7 @@
 {
   "AWSTemplateFormatVersion" : "2010-09-09",
 
-  "Description" : "Launch HAProxy in VPC",
+  "Description" : "Launch HAproxy servers in VPC",
 
   "Parameters" : {
     "KeyName": {
@@ -34,9 +34,9 @@
     },
 
     "InstanceType": {
-      "Description": "HAProxy instance type",
+      "Description": "HAproxy instance type",
       "Type": "String",
-      "Default": "c3.xlarge"
+      "Default": "m3.medium"
     }
   },
 
@@ -47,7 +47,7 @@
   },
 
   "Resources" : {
-    "HAProxyInstance1" : {
+    "HaproxyInstance1" : {
       "Type" : "AWS::EC2::Instance",
       "Properties" : {
         "InstanceType" : { "Ref" : "InstanceType" },
@@ -55,7 +55,7 @@
         "ImageId" : { "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "AMI" ]},
         "Monitoring" : true,
         "Tags": [
-          { "Key" : "Name", "Value": "HAProxy 1" },
+          { "Key" : "Name", "Value": "HAproxy 1" },
           { "Key" : "Role", "Value" : "haproxy" },
           { "Key" : "Group", "Value" : "production" }
         ],
@@ -63,7 +63,8 @@
           { "DeviceName" : "/dev/sda1", "Ebs" : { "VolumeSize" : "20", "VolumeType" : "gp2" } }
         ],
         "NetworkInterfaces" : [{
-          "GroupSet"                 : [{ "Ref" : "HAProxySlaveGroup" }],
+          "GroupSet"                 : [{ "Ref" : "HaproxyGroup" }],
+          "AssociatePublicIpAddress" : "true",
           "PrivateIpAddress"         : "10.0.1.21",
           "DeviceIndex"              : "0",
           "DeleteOnTermination"      : "true",
@@ -72,15 +73,15 @@
       }
     },
 
-    "HAProxyEIP1" : {
+    "HaproxyInstance1EIP" : {
       "Type": "AWS::EC2::EIP",
       "Properties": {
-        "InstanceId" : { "Ref" : "HAProxyInstance1" },
+        "InstanceId" : { "Ref" : "HaproxyInstance1" },
         "Domain" : "vpc"
       }
     },
 
-    "HAProxyInstance2" : {
+    "HaproxyInstance2" : {
       "Type" : "AWS::EC2::Instance",
       "Properties" : {
         "InstanceType" : { "Ref" : "InstanceType" },
@@ -88,7 +89,7 @@
         "ImageId" : { "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "AMI" ]},
         "Monitoring" : true,
         "Tags": [
-          { "Key" : "Name", "Value": "HAProxy 2" },
+          { "Key" : "Name", "Value": "HAproxy 2" },
           { "Key" : "Role", "Value" : "haproxy" },
           { "Key" : "Group", "Value" : "production" }
         ],
@@ -96,7 +97,8 @@
           { "DeviceName" : "/dev/sda1", "Ebs" : { "VolumeSize" : "20", "VolumeType" : "gp2" } }
         ],
         "NetworkInterfaces" : [{
-          "GroupSet"                 : [{ "Ref" : "HAProxySlaveGroup" }],
+          "GroupSet"                 : [{ "Ref" : "HaproxyGroup" }],
+          "AssociatePublicIpAddress" : "true",
           "PrivateIpAddress"         : "10.0.2.21",
           "DeviceIndex"              : "0",
           "DeleteOnTermination"      : "true",
@@ -105,48 +107,15 @@
       }
     },
 
-    "HAProxyEIP2" : {
+    "HaproxyInstance2EIP" : {
       "Type": "AWS::EC2::EIP",
       "Properties": {
-        "InstanceId" : { "Ref" : "HAProxyInstance2" },
+        "InstanceId" : { "Ref" : "HaproxyInstance2" },
         "Domain" : "vpc"
       }
     },
 
-    "HAProxyInstance3" : {
-      "Type" : "AWS::EC2::Instance",
-      "Properties" : {
-        "InstanceType" : { "Ref" : "InstanceType" },
-        "KeyName" : { "Ref" : "KeyName" },
-        "ImageId" : { "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "AMI" ]},
-        "Monitoring" : true,
-        "Tags": [
-          { "Key" : "Name", "Value": "HAProxy 3" },
-          { "Key" : "Role", "Value" : "haproxy" },
-          { "Key" : "Group", "Value" : "production" }
-        ],
-        "BlockDeviceMappings" : [
-          { "DeviceName" : "/dev/sda1", "Ebs" : { "VolumeSize" : "20", "VolumeType" : "gp2" } }
-        ],
-        "NetworkInterfaces" : [{
-          "GroupSet"                 : [{ "Ref" : "HAProxySlaveGroup" }],
-          "PrivateIpAddress"         : "10.0.3.21",
-          "DeviceIndex"              : "0",
-          "DeleteOnTermination"      : "true",
-          "SubnetId"                 : { "Ref" : "SubnetIdPub3" }
-        }]
-      }
-    },
-
-    "HAProxyEIP3" : {
-      "Type": "AWS::EC2::EIP",
-      "Properties": {
-        "InstanceId" : { "Ref" : "HAProxyInstance3" },
-        "Domain" : "vpc"
-      }
-    },
-
-    "HAProxySlaveGroup" : {
+    "HaproxyGroup" : {
       "Type" : "AWS::EC2::SecurityGroup",
       "Properties" : {
         "GroupDescription" : "haproxy role security group",
@@ -155,8 +124,9 @@
           { "IpProtocol" : "tcp", "FromPort" : "22", "ToPort" : "22", "CidrIp" : "10.0.0.0/16" },
           { "IpProtocol" : "tcp", "FromPort" : "80", "ToPort" : "80", "CidrIp" : "0.0.0.0/0" },
           { "IpProtocol" : "tcp", "FromPort" : "443", "ToPort" : "443", "CidrIp" : "0.0.0.0/0" },
-          { "IpProtocol" : "tcp", "FromPort" : "3000", "ToPort" : "3000", "CidrIp" : "0.0.0.0/0" },
-          { "IpProtocol" : "tcp", "FromPort" : "1024", "ToPort" : "65535", "CidrIp" : "10.0.0.0/16" }
+          { "IpProtocol" : "tcp", "FromPort" : "9090", "ToPort" : "9090", "CidrIp" : "10.0.0.0/16" },
+          { "IpProtocol" : "tcp", "FromPort" : "10000", "ToPort" : "10999", "CidrIp" : "0.0.0.0/0" },
+          { "IpProtocol" : "tcp", "FromPort" : "12000", "ToPort" : "12999", "CidrIp" : "0.0.0.0/0" }
         ]
       }
     }

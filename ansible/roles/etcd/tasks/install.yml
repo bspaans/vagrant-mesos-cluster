@@ -1,0 +1,15 @@
+---
+- name: Create etcd binary directory
+  file: state=directory path={{etcd_bin_folder}}
+
+- name: Download etcd bin release
+  get_url: url={{etcd_download_url}} dest=/opt/src/etcd/etcd_{{etcd_version}}.tar.gz
+
+- name: Unpack etcd binary tarball.
+  command: tar zxf etcd_{{etcd_version}}.tar.gz --strip-components=1  -C {{etcd_bin_folder}} --no-same-owner chdir=/opt/src/etcd/ creates={{etcd_bin_folder}}/etcd
+
+- name: Symlink the etcd executable.
+  file: dest=/usr/local/bin/etcd src={{etcd_bin_folder}}/etcd state=link
+
+- name: Symlink the etcdctl executable.
+  file: dest=/usr/local/bin/etcdctl src={{etcd_bin_folder}}/etcdctl state=link

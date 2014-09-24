@@ -1,0 +1,16 @@
+---
+- group: name=etcd system=yes
+- user: name=etcd group=etcd system=yes
+
+- name: Change ownership to bin folder
+  file: state=directory path={{etcd_bin_folder}} recurse=yes owner=etcd group=etcd
+
+- name: Create etcd data folder
+  file: state=directory path={{etcd_data_dir}} recurse=yes owner=etcd group=etcd
+
+- name: etcd upstart script
+  template: src=etcd.conf.j2 dest=/etc/init/etcd.conf
+  notify: Restart etcd
+
+- name: Make sure etcd is started and enabled
+  service: name=etcd state=started enabled=yes
