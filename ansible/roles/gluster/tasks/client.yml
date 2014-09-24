@@ -1,0 +1,11 @@
+---
+
+- name: Install client
+  apt: pkg=glusterfs-client state=installed
+
+- name: Create /data directory
+  file: path=/data state=directory
+
+- name: Mount glusterfs datavol
+  command: mount.glusterfs {{gluster_server}}:/data /data
+

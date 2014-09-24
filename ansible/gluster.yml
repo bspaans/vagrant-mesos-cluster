@@ -1,9 +1,8 @@
 ---
-- hosts: mesos-slaves
+- hosts: gluster
   gather_facts: false
   sudo: yes
 
   roles:
     - common
-    - { role: mesosphere, tags: [ 'mesos' ] }
     - { role: gluster }

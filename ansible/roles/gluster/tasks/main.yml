@@ -1,0 +1,9 @@
+---
+- include: standby.yml
+  when: gluster_install_mode == "standby"
+
+- include: master.yml
+  when: gluster_install_mode == "master"
+
+- include: client.yml
+  when: gluster_install_mode == "client"

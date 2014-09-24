@@ -1,7 +1,7 @@
 [mesos-masters]
-10.0.10.11 mesos_ip=10.0.10.11 zookeeper_myid=1
-10.0.20.11 mesos_ip=10.0.20.11 zookeeper_myid=2
-10.0.30.11 mesos_ip=10.0.30.11 zookeeper_myid=3
+10.0.10.11 mesos_ip=10.0.10.11 zookeeper_myid=1 gluster_install_mode=standby
+10.0.20.11 mesos_ip=10.0.20.11 zookeeper_myid=2 gluster_install_mode=standby
+10.0.30.11 mesos_ip=10.0.30.11 zookeeper_myid=3 gluster_install_mode=master
 
 [haproxy]
 10.0.1.21 hadiscovery_local_host=10.0.1.21

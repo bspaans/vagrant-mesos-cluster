@@ -1,0 +1,18 @@
+---
+
+- include: server.yml
+
+- name: Probe peer
+  command: gluster peer probe {{item}}
+  with_items: gluster_peers
+
+- name: Peer status
+  command: gluster peer status
+
+- name: Create gluster volume
+  command: gluster volume create datavol replica {{gluster_replicas}} transport tcp {{gluster_paths}} force
+
+- name: Start volume
+  command: gluster volume start datavol
+
+

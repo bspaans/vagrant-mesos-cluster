@@ -17,3 +17,8 @@ marathon_runtime_params: --ha
 
 # datadog
 datadog_enable_ec2tags: yes
+
+gluster_server: 10.0.30.11
+gluster_peers: ["10.0.10.11", "10.0.20.11"]
+gluster_replicas: 3
+gluster_paths: "10.0.10.11:/data 10.0.20.11:/data 10.0.30.11:/data"

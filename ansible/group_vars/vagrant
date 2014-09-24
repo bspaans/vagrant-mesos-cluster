@@ -13,3 +13,8 @@ zookeeper_servers:
 
 # mesos-slave
 mesos_zk: "zk://10.0.10.11:2181/mesos"
+
+gluster_server: 10.0.50.12
+gluster_peers: ["10.0.50.11"]
+gluster_replicas: 2
+gluster_paths: "10.0.50.11:/data 10.0.50.12:/data"

@@ -1,0 +1,5 @@
+---
+
+gluster_install_mode: "client"
+gluster_server: ""
+gluster_peers: []

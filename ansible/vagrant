@@ -1,5 +1,11 @@
 [mesos-masters]
 mesos-master1 ansible_ssh_host=10.0.10.11 mesos_ip=10.0.10.11 zookeeper_myid=1
+mesos-master2 ansible_ssh_host=10.0.20.11 mesos_ip=10.0.20.11 zookeeper_myid=2
+
+[gluster]
+gluster1 ansible_ssh_host=10.0.50.11 mesos_ip=10.0.50.11 gluster_install_mode=standby
+gluster2 ansible_ssh_host=10.0.50.12 mesos_ip=10.0.50.12 gluster_install_mode=master
+gluster-client ansible_ssh_host=10.0.60.11 mesos_ip=10.0.60.11 gluster_install_mode=client
 
 [haproxy]
 haproxy1 ansible_ssh_host=10.0.10.21 hadiscovery_local_host=10.0.10.21
@@ -17,3 +23,4 @@ vnc ansible_ssh_host=10.0.10.2
 mesos-masters
 haproxy
 mesos-slaves
+gluster

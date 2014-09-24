@@ -9,6 +9,36 @@
     }
   },
 
+  "gluster1" : {
+    "playbook": "gluster.yml",
+    "ip": "10.0.50.11",
+    "config": {
+      "type": "virtualbox",
+      "cpus": 1,
+      "mem": 2048
+    }
+  },
+
+  "gluster2" : {
+    "playbook": "gluster.yml",
+    "ip": "10.0.50.12",
+    "config": {
+      "type": "virtualbox",
+      "cpus": 1,
+      "mem": 2048
+    }
+  },
+
+  "gluster-client": {
+    "playbook": "gluster.yml",
+    "ip": "10.0.60.11",
+    "config": {
+      "type": "virtualbox",
+      "cpus": 1,
+      "mem": 1024
+    }
+  },
+
   "haproxy1" : {
     "playbook": "haproxy.yml",
     "ip": "10.0.10.21",

@@ -1,0 +1,10 @@
+---
+
+- name: Install server package
+  apt: pkg=glusterfs-server state=installed
+
+- name: Override default configuration
+  template: src=glusterd.vol.j2 dest=/etc/glusterfs/glusterd.vol
+
+- name: Restart glusterfs-server 
+  service: name=glusterfs-server state=restarted
